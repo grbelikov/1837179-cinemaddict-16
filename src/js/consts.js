@@ -6,5 +6,6 @@ const RANGS = {
 };
 
 const EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
+const MAX_DISPLAYED_CARDS = 5;
 
-export {RANGS, EMOTIONS};
+export {RANGS, EMOTIONS, MAX_DISPLAYED_CARDS};
