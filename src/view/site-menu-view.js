@@ -1,4 +1,4 @@
-export const createSiteMenuTemplate = () => (
+export const createSiteMenuTemplate = (objectsArray) => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
       <a href="#all" class="main-navigation__item">All movies</a>
@@ -16,7 +16,7 @@ export const createSiteMenuTemplate = () => (
   </ul>`
 );
 
-export const createMovieStatisticTemplate = () => (
+export const createMovieStatisticTemplate = (objectsArray) => (
   `
     <p>130 291 movies inside</p>
   `
