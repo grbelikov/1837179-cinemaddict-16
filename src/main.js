@@ -6,10 +6,9 @@ import {createUserRankTemplate} from './view/user-rank-view.js';
 import {addHiddenTagToPopup} from '../src/js/popup.js';
 import {createPopupTemplate} from './view/popup.js';
 import {createObjectsArray} from '../src/mock/card.js';
-import {setShowingCommentsByClick} from './js/button-show-more.js';
+import {setShowingCardsByClick} from './js/button-show-more.js';
 
 const objectsArray = createObjectsArray();
-console.log(objectsArray);
 
 const siteMainElement = document.querySelector('.main');
 
@@ -31,5 +30,5 @@ const footerStatisticsElement = siteFooterElement.querySelector('.footer__statis
 renderTemplate(footerStatisticsElement, createMovieStatisticTemplate(objectsArray), renderPosition.BEFOREEND);
 renderTemplate(siteFooterElement, createPopupTemplate(objectsArray), renderPosition.AFTEREND);
 
-setShowingCommentsByClick();
+setShowingCardsByClick();
 addHiddenTagToPopup();
