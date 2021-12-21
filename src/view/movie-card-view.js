@@ -1,8 +1,3 @@
-export const createFilmContainer = () => (
-  `<div class="films-list__container">
-  </div>`
-);
-
 export const createFilmCardTemplate = (objectCard) => (
   `<article class="film-card">
       <a class="film-card__link">
