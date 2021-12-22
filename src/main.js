@@ -26,8 +26,16 @@ render(siteMainElement, new SortElements().element, RENDER_POSITIONS.BEFOREEND);
 render(siteMainElement, new FilmContainerView().element, RENDER_POSITIONS.BEFOREEND);
 
 const filmsListContainer = document.querySelector('.films-list__container');
-objectsArray.forEach((elem) => {
+objectsArray.forEach((elem, i) => {
   render(filmsListContainer, new FilmCardTemplate(elem).element, RENDER_POSITIONS.BEFOREEND);
+
+  // const filmCardsPosters = document.querySelectorAll('.film-card__poster');
+  // const filmDetails = document.querySelector('.film-details');
+
+  // filmCardsPosters[i].addEventListener('click', () => {
+  //   console.log(`Click! ${i}`);
+  // });
+
 });
 
 render(siteMainElement, new ShowMoreButtonView().element, RENDER_POSITIONS.BEFOREEND);
@@ -42,5 +50,5 @@ render(footerStatisticsElement, new MovieStatisticView().element, RENDER_POSITIO
 render(siteFooterElement, new PopupView(objectsArray[0]).element, RENDER_POSITIONS.AFTEREND);
 
 setShowingCardsByClick();
-fullSizeCard();
+// fullSizeCard();
 addHiddenTagToPopup();
