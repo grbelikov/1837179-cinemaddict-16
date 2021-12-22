@@ -1,8 +1,7 @@
 import {createElement} from '../render.js';
 
-export const createFilmContainer = () => (
-  `
-  <div class="films-list__container">
+const createFilmContainer = () => (
+  `<div class="films-list__container">
   </div>
   `
 );

@@ -1,8 +1,7 @@
 import {createElement} from '../render.js';
 
-export const createMovieStatisticTemplate = () => (
-  `
-    <p>130 291 movies inside</p>
+const createMovieStatisticTemplate = () => (
+  `<p>130 291 movies inside</p>
   `
 );
 
