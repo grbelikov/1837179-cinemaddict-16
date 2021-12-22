@@ -12,7 +12,6 @@ import MovieStatisticView from './view/movie-statistics-view.js';
 import ShowMoreButtonView from './view/show-more-button-view.js';
 
 import {addHiddenTagToPopup} from '../src/js/popup.js';
-import {fullSizeCard} from '../src/js/full-size-card.js';
 import {createObjectsArray} from '../src/mock/card.js';
 import {setShowingCardsByClick} from './js/button-show-more.js';
 
@@ -25,17 +24,20 @@ render(siteMainElement, new SiteMenuView().element, RENDER_POSITIONS.BEFOREEND);
 render(siteMainElement, new SortElements().element, RENDER_POSITIONS.BEFOREEND);
 render(siteMainElement, new FilmContainerView().element, RENDER_POSITIONS.BEFOREEND);
 
+const siteFooterElement = document.querySelector('.footer');
+const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
 const filmsListContainer = document.querySelector('.films-list__container');
+
 objectsArray.forEach((elem, i) => {
   render(filmsListContainer, new FilmCardTemplate(elem).element, RENDER_POSITIONS.BEFOREEND);
 
-  // const filmCardsPosters = document.querySelectorAll('.film-card__poster');
+  const filmCardsPosters = document.querySelectorAll('.film-card__poster');
   // const filmDetails = document.querySelector('.film-details');
-
-  // filmCardsPosters[i].addEventListener('click', () => {
-  //   console.log(`Click! ${i}`);
-  // });
-
+  filmCardsPosters[i].addEventListener('click', () => {
+    render(siteFooterElement, new PopupView(objectsArray[i]).element, RENDER_POSITIONS.AFTEREND);
+    // console.log(`Click! ${i}`);
+    addHiddenTagToPopup();
+  });
 });
 
 render(siteMainElement, new ShowMoreButtonView().element, RENDER_POSITIONS.BEFOREEND);
@@ -43,12 +45,7 @@ render(siteMainElement, new ShowMoreButtonView().element, RENDER_POSITIONS.BEFOR
 const siteHeaderElement = document.querySelector('.header');
 render(siteHeaderElement, new UserRangView(userRating).element, RENDER_POSITIONS.BEFOREEND);
 
-const siteFooterElement = document.querySelector('.footer');
-const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
 render(footerStatisticsElement, new MovieStatisticView().element, RENDER_POSITIONS.BEFOREEND);
 
-render(siteFooterElement, new PopupView(objectsArray[0]).element, RENDER_POSITIONS.AFTEREND);
-
 setShowingCardsByClick();
-// fullSizeCard();
-addHiddenTagToPopup();
+

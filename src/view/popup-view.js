@@ -1,7 +1,7 @@
 import {createElement} from '../render.js';
 
-const createPopupTemplate = (objectZero) => (
-  `<section class="film-details visually-hidden">
+const createPopupTemplate = (filmDetailsPopup) => (
+  `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
       <div class="film-details__top-container">
         <div class="film-details__close">
@@ -9,7 +9,7 @@ const createPopupTemplate = (objectZero) => (
         </div>
         <div class="film-details__info-wrap">
           <div class="film-details__poster">
-            <img class="film-details__poster-img" src="${objectZero.poster}" alt="">
+            <img class="film-details__poster-img" src="${filmDetailsPopup.poster}" alt="">
 
             <p class="film-details__age">18+</p>
           </div>
@@ -17,51 +17,51 @@ const createPopupTemplate = (objectZero) => (
           <div class="film-details__info">
             <div class="film-details__info-head">
               <div class="film-details__title-wrap">
-                <h3 class="film-details__title">${objectZero.title}</h3>
-                <p class="film-details__title-original">Original: ${objectZero.originalTitle}</p>
+                <h3 class="film-details__title">${filmDetailsPopup.title}</h3>
+                <p class="film-details__title-original">Original: ${filmDetailsPopup.originalTitle}</p>
               </div>
 
               <div class="film-details__rating">
-                <p class="film-details__total-rating">${objectZero.rating}</p>
+                <p class="film-details__total-rating">${filmDetailsPopup.rating}</p>
               </div>
             </div>
 
             <table class="film-details__table">
               <tr class="film-details__row">
                 <td class="film-details__term">Director</td>
-                <td class="film-details__cell">${objectZero.director}</td>
+                <td class="film-details__cell">${filmDetailsPopup.director}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Writers</td>
-                <td class="film-details__cell">${objectZero.writers}</td>
+                <td class="film-details__cell">${filmDetailsPopup.writers}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Actors</td>
-                <td class="film-details__cell">${objectZero.actors}</td>
+                <td class="film-details__cell">${filmDetailsPopup.actors}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Release Date</td>
-                <td class="film-details__cell">${objectZero.year}</td>
+                <td class="film-details__cell">${filmDetailsPopup.year}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Runtime</td>
-                <td class="film-details__cell">${objectZero.duration}</td>
+                <td class="film-details__cell">${filmDetailsPopup.duration}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Country</td>
-                <td class="film-details__cell">${objectZero.country}</td>
+                <td class="film-details__cell">${filmDetailsPopup.country}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Genres</td>
                 <td class="film-details__cell">
-                  <span class="film-details__genre">${objectZero.genres[0]}</span>
-                  <span class="film-details__genre">${objectZero.genres[1]}</span>
-                  <span class="film-details__genre">${objectZero.genres[2]}</span></td>
+                  <span class="film-details__genre">${filmDetailsPopup.genres[0]}</span>
+                  <span class="film-details__genre">${filmDetailsPopup.genres[1]}</span>
+                  <span class="film-details__genre">${filmDetailsPopup.genres[2]}</span></td>
               </tr>
             </table>
 
             <p class="film-details__film-description">
-            ${objectZero.description}
+            ${filmDetailsPopup.description}
             </p>
           </div>
         </div>
@@ -169,10 +169,10 @@ const createPopupTemplate = (objectZero) => (
 
 export default class PopupView {
   #element = null;
-  #objectZero = null;
+  #filmDetailsPopup = null;
 
-  constructor(objectZero) {
-    this.#objectZero = objectZero;
+  constructor(filmDetailsPopup) {
+    this.#filmDetailsPopup = filmDetailsPopup;
   }
 
   get element() {
@@ -183,7 +183,7 @@ export default class PopupView {
   }
 
   get template() {
-    return createPopupTemplate(this.#objectZero);
+    return createPopupTemplate(this.#filmDetailsPopup);
   }
 
   removeElement() {
