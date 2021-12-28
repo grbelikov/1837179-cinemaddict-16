@@ -31,12 +31,14 @@ const filmsListContainer = document.querySelector('.films-list__container');
 objectsArray.forEach((elem, i) => {
   const filmCardTemplate = new FilmCardTemplate(elem);
   render(filmsListContainer, filmCardTemplate.element, RENDER_POSITIONS.BEFOREEND);
+  console.log(filmCardTemplate.element);
 
-  const filmCardsPosters = document.querySelectorAll('.film-card__poster');
-  // const filmDetails = document.querySelector('.film-details');
-  filmCardsPosters[i].addEventListener('click', () => {
-    render(siteFooterElement, new PopupView(objectsArray[i]).element, RENDER_POSITIONS.AFTEREND);
-    // console.log(`Click! ${i}`);
+  const filmCard = filmCardTemplate.element.querySelector('.film-card__link');
+
+  // const filmCardsPosters = document.querySelectorAll('.film-card__poster');
+  // // const filmDetails = document.querySelector('.film-details');
+  filmCard.addEventListener('click', () => {
+    render(siteFooterElement, new PopupView(elem).element, RENDER_POSITIONS.AFTEREND);
     addHiddenTagToPopup();
   });
 });
