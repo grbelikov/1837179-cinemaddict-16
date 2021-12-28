@@ -1,11 +1,12 @@
-
 import {createElement} from '../../src/render.js';
+
 export default class AbstractView {
   #element = null;
+  _callback = {};
 
   constructor() {
     if (new.target === AbstractView) {
-      throw new Error(`Can  not create abstract class ${new.target}`);
+      throw new Error(`Cannot create abstract class ${new.target}`);
     }
   }
 

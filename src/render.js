@@ -1,18 +1,22 @@
 import {RENDER_POSITIONS} from './js/consts.js';
+import AbstractView from './view/abstract-view.js';
 
 export const render = (container, element, place) => {
+  const parent = container instanceof AbstractView ? container.element : container;
+  const child = element instanceof AbstractView ? element.element : element;
+
   switch (place) {
     case RENDER_POSITIONS.BEFOREBEGIN:
-      container.before(element);
+      parent.before(child);
       break;
     case RENDER_POSITIONS.AFTERBEGIN:
-      container.prepend(element);
+      parent.prepend(child);
       break;
     case RENDER_POSITIONS.BEFOREEND:
-      container.append(element);
+      parent.append(child);
       break;
     case RENDER_POSITIONS.AFTEREND:
-      container.after(element);
+      parent.after(child);
       break;
   }
 };

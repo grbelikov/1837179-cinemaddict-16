@@ -20,9 +20,9 @@ const userRating = calculateUserRating(objectsArray);
 
 const siteMainElement = document.querySelector('.main');
 
-render(siteMainElement, new SiteMenuView().element, RENDER_POSITIONS.BEFOREEND);
-render(siteMainElement, new SortElements().element, RENDER_POSITIONS.BEFOREEND);
-render(siteMainElement, new FilmContainerView().element, RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new FilmContainerView(), RENDER_POSITIONS.BEFOREEND);
 
 const siteFooterElement = document.querySelector('.footer');
 const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
@@ -30,23 +30,25 @@ const filmsListContainer = document.querySelector('.films-list__container');
 
 objectsArray.forEach((elem, i) => {
   const filmCardTemplate = new FilmCardTemplate(elem);
-  render(filmsListContainer, filmCardTemplate.element, RENDER_POSITIONS.BEFOREEND);
+  // console.log(filmCardTemplate);
+  // console.log(filmCardTemplate.element);
+  render(filmsListContainer, filmCardTemplate, RENDER_POSITIONS.BEFOREEND);
 
   const filmCardsPosters = document.querySelectorAll('.film-card__poster');
   // const filmDetails = document.querySelector('.film-details');
   filmCardsPosters[i].addEventListener('click', () => {
-    render(siteFooterElement, new PopupView(objectsArray[i]).element, RENDER_POSITIONS.AFTEREND);
+    render(siteFooterElement, new PopupView(objectsArray[i]), RENDER_POSITIONS.AFTEREND);
     // console.log(`Click! ${i}`);
     addHiddenTagToPopup();
   });
 });
 
-render(siteMainElement, new ShowMoreButtonView().element, RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new ShowMoreButtonView(), RENDER_POSITIONS.BEFOREEND);
 
 const siteHeaderElement = document.querySelector('.header');
-render(siteHeaderElement, new UserRangView(userRating).element, RENDER_POSITIONS.BEFOREEND);
+render(siteHeaderElement, new UserRangView(userRating), RENDER_POSITIONS.BEFOREEND);
 
-render(footerStatisticsElement, new MovieStatisticView().element, RENDER_POSITIONS.BEFOREEND);
+render(footerStatisticsElement, new MovieStatisticView(), RENDER_POSITIONS.BEFOREEND);
 
 setShowingCardsByClick();
 

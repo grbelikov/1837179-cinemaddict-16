@@ -2,8 +2,7 @@ import AbstractView from './abstract-view.js';
 
 const createFilmContainer = () => (
   `<div class="films-list__container">
-  </div>
-  `
+  </div>`
 );
 
 export default class FilmContainerView extends AbstractView {
