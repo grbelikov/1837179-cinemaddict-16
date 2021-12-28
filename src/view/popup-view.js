@@ -1,4 +1,5 @@
 import {createElement} from '../render.js';
+import AbstractView from './abstract-view.js';
 
 const createPopupTemplate = (filmDetailsPopup) => (
   `<section class="film-details">
