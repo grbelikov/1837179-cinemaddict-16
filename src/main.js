@@ -29,7 +29,8 @@ const footerStatisticsElement = siteFooterElement.querySelector('.footer__statis
 const filmsListContainer = document.querySelector('.films-list__container');
 
 objectsArray.forEach((elem, i) => {
-  render(filmsListContainer, new FilmCardTemplate(elem).element, RENDER_POSITIONS.BEFOREEND);
+  const filmCardTemplate = new FilmCardTemplate(elem);
+  render(filmsListContainer, filmCardTemplate.element, RENDER_POSITIONS.BEFOREEND);
 
   const filmCardsPosters = document.querySelectorAll('.film-card__poster');
   // const filmDetails = document.querySelector('.film-details');
