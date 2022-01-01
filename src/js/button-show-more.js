@@ -23,7 +23,7 @@ const showMoreCards = () => {
 };
 
 // показывать больше комментариев при нажатии на кнопку 'Загрузить еще'
-const setShowingCommentsByClick = () => {
+const setShowingCardsByClick = () => {
   const cardsAll = document.querySelectorAll('.film-card');
   showFirstComments(cardsAll);
   // ищем все скрытые комментарии
@@ -31,4 +31,4 @@ const setShowingCommentsByClick = () => {
   buttonShowMoreCards.addEventListener('click', showMoreCards);
 };
 
-export {setShowingCommentsByClick};
+export {setShowingCardsByClick};

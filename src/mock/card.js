@@ -1,4 +1,4 @@
-import {EMOTIONS} from '../js/consts.js';
+import {EMOTIONS, CARDS_COUNT} from '../js/consts.js';
 
 const objectsArray = [];
 
@@ -12,6 +12,7 @@ const getRandomInteger = (a = 0, b = 1) => {
 // текущая дата в формате: год/месяц/день часы:минуты (например «2019/12/31 23:59»).
 const generateCurrentDate = () => {
   const dateNow = new Date();
+  // eslint-disable-next-line prefer-template
   const dateInFormat = dateNow.getFullYear() + '/'
     + dateNow.getMonth() + '/'
     + dateNow.getDate() + ' '
@@ -103,7 +104,7 @@ export const generateCard = () => ({
   poster: generatePoster(),
   title: generateTitle(),
   originalTitle: 'OriginalTitle',
-  rating: getRandomInteger(6, 9) + '.' + getRandomInteger(0, 9),
+  rating: `${getRandomInteger(6, 9)  }.${  getRandomInteger(0, 9)}`,
   ratio: null,
   director: 'Director',
   writers: 'Writers',
@@ -121,7 +122,7 @@ export const generateCard = () => ({
 });
 
 export const createObjectsArray = () => {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < CARDS_COUNT; i++) {
     objectsArray.push(generateCard());
   }
   return objectsArray;

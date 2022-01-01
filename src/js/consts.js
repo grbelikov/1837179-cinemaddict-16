@@ -5,7 +5,16 @@ const RANGS = {
   MOVIE_BUFF: 'movie buff',
 };
 
-const EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
-const MAX_DISPLAYED_CARDS = 5;
+const RENDER_POSITIONS = {
+  BEFOREBEGIN: 'beforebegin',
+  AFTERBEGIN: 'afterbegin',
+  BEFOREEND: 'beforeend',
+  AFTEREND: 'afterend',
+};
 
-export {RANGS, EMOTIONS, MAX_DISPLAYED_CARDS};
+const EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
+const CARDS_COUNT = 20;
+const DISPLAYED_CARDS_PER_STEP = 5;
+const ESC_KEYBUTTON = 27;
+
+export {RANGS, RENDER_POSITIONS, CARDS_COUNT, EMOTIONS, ESC_KEYBUTTON, DISPLAYED_CARDS_PER_STEP};
