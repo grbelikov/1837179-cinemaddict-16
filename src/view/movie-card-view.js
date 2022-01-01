@@ -22,7 +22,7 @@ const createFilmCardTemplate = (objectCard) => (
     </article>`
 );
 
-export default class FilmContainerView extends AbstractView {
+export default class FilmCardTemplate extends AbstractView {
   #card = null;
 
   constructor(card) {
