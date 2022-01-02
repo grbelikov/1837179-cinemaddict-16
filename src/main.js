@@ -61,7 +61,6 @@ const renderCard = (cardListElement, card) => {
   render(cardListElement, cardComponent.element, RENDER_POSITIONS.BEFOREEND);
 };
 
-
 if (objectsArray.length === 0) {
   render(siteMainElement, new NoTaskView().element, RENDER_POSITIONS.BEFOREEND);
 } else {
