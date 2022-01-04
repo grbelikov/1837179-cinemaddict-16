@@ -1,8 +1,6 @@
 import {calculateUserRating} from './js/rangs.js';
 import {render} from './render.js';
 import {DISPLAYED_CARDS_PER_STEP, RENDER_POSITIONS, ESC_KEYBUTTON} from './js/consts.js';
-// import {remove} from './render.js';
-// import {appendElement} from './render.js';
 
 import UserRangView from './view/user-rang-view.js';
 import SiteMenuView from './view/site-menu-view.js';
@@ -35,13 +33,11 @@ const renderCard = (cardListElement, card) => {
 
   const addPopupToCard = () => {
     cardListElement.appendChild(popupElem.element);
-    // appendElement(popupElem);
     document.body.classList.add('hide-overflow');
   };
 
   const removePopupFromCard = () => {
     cardListElement.removeChild(popupElem.element);
-    // remove(popupElem);
     document.body.classList.remove('hide-overflow');
   };
 
