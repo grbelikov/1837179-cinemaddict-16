@@ -19,9 +19,9 @@ const userRating = calculateUserRating(objectsArray);
 
 const siteMainElement = document.querySelector('.main');
 
-render(siteMainElement, new SiteMenuView().element, RENDER_POSITIONS.BEFOREEND);
-render(siteMainElement, new SortElements().element, RENDER_POSITIONS.BEFOREEND);
-render(siteMainElement, new FilmContainerView().element, RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
+render(siteMainElement, new FilmContainerView(), RENDER_POSITIONS.BEFOREEND);
 
 const siteFooterElement = document.querySelector('.footer');
 const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
@@ -49,20 +49,21 @@ const renderCard = (cardListElement, card) => {
     }
   };
 
-  cardComponent.element.querySelector('.film-card__link').addEventListener('click', () => {
+  cardComponent.setClickHandler(() => {
     addPopupToCard();
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  popupElem.element.querySelector('.film-details__close-btn').addEventListener('click', () => {
+  popupElem.setCloseClickHandler(() => {
     removePopupFromCard();
+    document.removeEventListener('keydown', onEscKeyDown);
   });
 
-  render(cardListElement, cardComponent.element, RENDER_POSITIONS.BEFOREEND);
+  render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
 };
 
 if (objectsArray.length === 0) {
-  render(siteMainElement, new NoTaskView().element, RENDER_POSITIONS.BEFOREEND);
+  render(siteMainElement, new NoTaskView(), RENDER_POSITIONS.BEFOREEND);
 } else {
 
   for (let i = 0; i < Math.min(objectsArray.length, DISPLAYED_CARDS_PER_STEP); i++) {
@@ -73,10 +74,9 @@ if (objectsArray.length === 0) {
     let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
     const showMoreButtonComponent = new ShowMoreButtonView();
 
-    render(siteMainElement, showMoreButtonComponent.element, RENDER_POSITIONS.BEFOREEND);
+    render(siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
 
-    showMoreButtonComponent.element.addEventListener('click', (evt) => {
-      evt.preventDefault();
+    showMoreButtonComponent.setClickHandler(() => {
       objectsArray
         .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
         .forEach((card) => renderCard(filmsListContainer, card));
@@ -91,7 +91,7 @@ if (objectsArray.length === 0) {
   }
 
   const siteHeaderElement = document.querySelector('.header');
-  render(siteHeaderElement, new UserRangView(userRating).element, RENDER_POSITIONS.BEFOREEND);
+  render(siteHeaderElement, new UserRangView(userRating), RENDER_POSITIONS.BEFOREEND);
 
-  render(footerStatisticsElement, new MovieStatisticView().element, RENDER_POSITIONS.BEFOREEND);
+  render(footerStatisticsElement, new MovieStatisticView(), RENDER_POSITIONS.BEFOREEND);
 }
