@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from './abstract-view.js';
 
 const createFilmCardTemplate = (objectCard) => (
   `<article class="film-card">
@@ -22,26 +22,25 @@ const createFilmCardTemplate = (objectCard) => (
     </article>`
 );
 
-export default class SiteMenuView {
-  #element = null;
+export default class FilmCardTemplate extends AbstractView {
   #card = null;
 
   constructor(card) {
+    super();
     this.#card = card;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createFilmCardTemplate(this.#card);
   }
 
-  removeElement() {
-    this.#element = null;
+  setClickHandler = (cb) => {
+    this._callback.editClick = cb;
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 }

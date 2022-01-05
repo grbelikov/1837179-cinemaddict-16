@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from './abstract-view.js';
 
 const createPopupTemplate = (filmDetailsPopup) => (
   `<section class="film-details">
@@ -167,26 +167,25 @@ const createPopupTemplate = (filmDetailsPopup) => (
   </section>`
 );
 
-export default class PopupView {
-  #element = null;
+export default class PopupView extends AbstractView {
   #filmDetailsPopup = null;
 
   constructor(filmDetailsPopup) {
+    super();
     this.#filmDetailsPopup = filmDetailsPopup;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createPopupTemplate(this.#filmDetailsPopup);
   }
 
-  removeElement() {
-    this.#element = null;
+  setCloseClickHandler = (cb) => {
+    this._callback.editClick = cb;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 }

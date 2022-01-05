@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from './abstract-view.js';
 
 const createUserRankTemplate = (userRang) => (
   `<section class="header__profile profile">
@@ -7,26 +7,15 @@ const createUserRankTemplate = (userRang) => (
     </section>`
 );
 
-export default class SiteMenuView {
-  #element = null;
+export default class SiteMenuView extends AbstractView {
   #userRating = null;
 
   constructor(userRating) {
+    super();
     this.#userRating = userRating;
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createUserRankTemplate(this.#userRating);
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
