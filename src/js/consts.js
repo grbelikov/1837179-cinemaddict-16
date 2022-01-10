@@ -13,7 +13,7 @@ const RENDER_POSITIONS = {
 };
 
 const EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
-const CARDS_COUNT = 0;
+const CARDS_COUNT = 20;
 const DISPLAYED_CARDS_PER_STEP = 5;
 const ESC_KEYBUTTON = 27;
 

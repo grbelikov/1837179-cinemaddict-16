@@ -73,8 +73,8 @@ const renderCard = (cardListElement, card) => {
 };
 
 if (objectsArray.length === 0) {
-  // render(siteMainElement, new NoTaskView(), RENDER_POSITIONS.BEFOREEND);
-  moviePresenter.renderNoTask();
+  render(siteMainElement, new NoTaskView().element, RENDER_POSITIONS.BEFOREEND);
+  // moviePresenter.renderNoTask();
 } else {
 
   for (let i = 0; i < Math.min(objectsArray.length, DISPLAYED_CARDS_PER_STEP); i++) {
