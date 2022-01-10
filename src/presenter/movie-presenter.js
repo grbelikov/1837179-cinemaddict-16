@@ -10,7 +10,6 @@ import SortElements from '../view/sort-elements.js';
 import FilmCardTemplate from '../view/movie-card-view.js';
 import FilmContainerView from '../view/film-container-view.js';
 import MovieStatisticView from '../view/movie-statistics-view.js';
-import ShowMoreButtonView from '../view/show-more-button-view.js';
 
 // import {createObjectsArray} from '../js';
 
@@ -21,9 +20,8 @@ export default class MovieListPresenter {
   #sortComponent = new SortElements();
   #filmContainerComponent = new FilmContainerView();
   #noTaskComponent = new NoTaskView();
-  // #showMoreButtonComponent = new ShowMoreButtonView();
-  // #userRangComponent = new UserRangView(userRating);
   #movieStatisticComponent = new MovieStatisticView();
+  #filmCardTemplateComponent = new FilmCardTemplate();
 
   #films = [];
   #userRating = '';
@@ -34,8 +32,8 @@ export default class MovieListPresenter {
 
   init = (films) => {
     this.#films = [...films];
-    this.#userRating = calculateUserRating(this.#films);
     this.#renderSiteMenu();
+    this.#userRating = calculateUserRating(this.#films);
   }
 
   #renderSiteMenu = () => {
@@ -50,31 +48,28 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#filmContainerComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  renderNoTask = () => {
+  renderNoCards = () => {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
   #renderCard = () => {
-
+    render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderCards = () => {
-
-  }
-
-  #renderNoCards = () => {
-
-  }
+  // #renderCards = () => {
+  // }
 
   renderShowMoreButton = (showMoreButtonComponent) => {
     render(this.#siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderUserRating = () => {
-
+  //!!!!! почему, если вызвать как переменную, то не работает???
+  // #userRangComponent = new UserRangView(this.#userRating);
+  renderUserRating = () => {
+    render(document.querySelector('.header'), new UserRangView(this.#userRating), RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderMovieStatistic = () => {
-
+  renderMovieStatistic = () => {
+    render(document.querySelector('.footer__statistics'), this.#movieStatisticComponent, RENDER_POSITIONS.BEFOREEND);
   }
 }
