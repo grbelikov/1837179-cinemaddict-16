@@ -50,6 +50,10 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#filmContainerComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
+  renderNoTask = () => {
+    render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
+  }
+
   #renderCard = () => {
 
   }
