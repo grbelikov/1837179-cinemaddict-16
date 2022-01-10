@@ -14,7 +14,6 @@ import ShowMoreButtonView from '../view/show-more-button-view.js';
 
 // import {createObjectsArray} from '../js';
 
-
 export default class MovieListPresenter {
   #siteMainElement = null;
 
@@ -22,7 +21,7 @@ export default class MovieListPresenter {
   #sortComponent = new SortElements();
   #filmContainerComponent = new FilmContainerView();
   #noTaskComponent = new NoTaskView();
-  #showMoreButtonComponent = new ShowMoreButtonView();
+  // #showMoreButtonComponent = new ShowMoreButtonView();
   // #userRangComponent = new UserRangView(userRating);
   #movieStatisticComponent = new MovieStatisticView();
 
@@ -36,15 +35,19 @@ export default class MovieListPresenter {
   init = (films) => {
     this.#films = [...films];
     this.#userRating = calculateUserRating(this.#films);
-    this.renderSiteMenu();
+    this.#renderSiteMenu();
   }
 
-  renderSiteMenu = () => {
+  #renderSiteMenu = () => {
     render(this.#siteMainElement, this.#siteMenuComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderSort = () => {
+  renderSort = () => {
+    render(this.#siteMainElement, this.#sortComponent, RENDER_POSITIONS.BEFOREEND);
+  }
 
+  renderFilmContainer = () => {
+    render(this.#siteMainElement, this.#filmContainerComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
   #renderCard = () => {
@@ -59,8 +62,8 @@ export default class MovieListPresenter {
 
   }
 
-  #renderShowMoreButton = () => {
-
+  renderShowMoreButton = (showMoreButtonComponent) => {
+    render(this.#siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
   #renderUserRating = () => {
@@ -71,9 +74,3 @@ export default class MovieListPresenter {
 
   }
 }
-
-
-// export default class MoviePresenter {
-
-// };
-

@@ -22,12 +22,16 @@ const moviePresenter = new MovieListPresenter(document.querySelector('.main'));
 const objectsArray = createObjectsArray();
 const userRating = calculateUserRating(objectsArray);
 
-moviePresenter.init(createObjectsArray());
-// moviePresenter.renderSiteMenu();
 // render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
 
-render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
-render(siteMainElement, new FilmContainerView(), RENDER_POSITIONS.BEFOREEND);
+moviePresenter.init(createObjectsArray());
+
+// render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
+moviePresenter.renderSort();
+
+// render(siteMainElement, new FilmContainerView(), RENDER_POSITIONS.BEFOREEND);
+moviePresenter.renderFilmContainer();
+
 
 const siteFooterElement = document.querySelector('.footer');
 const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
@@ -80,7 +84,8 @@ if (objectsArray.length === 0) {
     let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
     const showMoreButtonComponent = new ShowMoreButtonView();
 
-    render(siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
+    // render(siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
+    moviePresenter.renderShowMoreButton(showMoreButtonComponent);
 
     showMoreButtonComponent.setClickHandler(() => {
       objectsArray
