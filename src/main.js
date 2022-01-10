@@ -14,12 +14,18 @@ import ShowMoreButtonView from './view/show-more-button-view.js';
 
 import {createObjectsArray} from '../src/mock/card.js';
 
+import MovieListPresenter from './presenter/movie-presenter.js';
+
+const siteMainElement = document.querySelector('.main');
+const moviePresenter = new MovieListPresenter(document.querySelector('.main'));
+
 const objectsArray = createObjectsArray();
 const userRating = calculateUserRating(objectsArray);
 
-const siteMainElement = document.querySelector('.main');
+moviePresenter.init(createObjectsArray());
+// moviePresenter.renderSiteMenu();
+// render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
 
-render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
 render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
 render(siteMainElement, new FilmContainerView(), RENDER_POSITIONS.BEFOREEND);
 

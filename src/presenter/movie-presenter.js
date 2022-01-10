@@ -1,22 +1,22 @@
-import {calculateUserRating} from './js/rangs.js';
-import {render} from './render.js';
-import {DISPLAYED_CARDS_PER_STEP, RENDER_POSITIONS, ESC_KEYBUTTON} from './js/consts.js';
+import {calculateUserRating} from '../js/rangs.js';
+import {render} from '../render.js';
+import {DISPLAYED_CARDS_PER_STEP, RENDER_POSITIONS, ESC_KEYBUTTON} from '../js/consts.js';
 
-import PopupView from './view/popup-view.js';
-import NoTaskView from './view/no-task-view.js';
-import UserRangView from './view/user-rang-view.js';
-import SiteMenuView from './view/site-menu-view.js';
-import SortElements from './view/sort-elements.js';
-import FilmCardTemplate from './view/movie-card-view.js';
-import FilmContainerView from './view/film-container-view.js';
-import MovieStatisticView from './view/movie-statistics-view.js';
-import ShowMoreButtonView from './view/show-more-button-view.js';
+import PopupView from '../view/popup-view.js';
+import NoTaskView from '../view/no-task-view.js';
+import UserRangView from '../view/user-rang-view.js';
+import SiteMenuView from '../view/site-menu-view.js';
+import SortElements from '../view/sort-elements.js';
+import FilmCardTemplate from '../view/movie-card-view.js';
+import FilmContainerView from '../view/film-container-view.js';
+import MovieStatisticView from '../view/movie-statistics-view.js';
+import ShowMoreButtonView from '../view/show-more-button-view.js';
 
-import {createObjectsArray} from '../src/mock/card.js';
+// import {createObjectsArray} from '../js';
 
 
 export default class MovieListPresenter {
-  #movieContainer = null;
+  #siteMainElement = null;
 
   #siteMenuComponent = new SiteMenuView();
   #sortComponent = new SortElements();
@@ -26,18 +26,21 @@ export default class MovieListPresenter {
   // #userRangComponent = new UserRangView(userRating);
   #movieStatisticComponent = new MovieStatisticView();
 
-  #cardsList = [];
+  #films = [];
+  #userRating = '';
 
-  constructor taskContainer(movieContainer) {
-    this.#movieContainer = movieContainer;
+  constructor (siteMainElement) {
+    this.#siteMainElement = siteMainElement;
   }
 
-  init = (cardsList) => {
-    this.#cardsList = [...cardsList];
+  init = (films) => {
+    this.#films = [...films];
+    this.#userRating = calculateUserRating(this.#films);
+    this.renderSiteMenu();
   }
 
-  #renderSiteMenu = () => {
-
+  renderSiteMenu = () => {
+    render(this.#siteMainElement, this.#siteMenuComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
   #renderSort = () => {
