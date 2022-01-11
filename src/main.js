@@ -24,7 +24,7 @@ const objectsArray = createObjectsArray();
 
 // render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
 
-moviePresenter.init(createObjectsArray());
+moviePresenter.init(objectsArray);
 
 // render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
 moviePresenter.renderSort();
