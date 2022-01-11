@@ -52,12 +52,47 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderCard = () => {
+  renderCard = (cardListElement, card) => {
+    const cardComponent = new FilmCardTemplate(card);
+    const popupElem = new PopupView(card);
+
+    const addPopupToCard = () => {
+      cardListElement.appendChild(popupElem.element);
+      document.body.classList.add('hide-overflow');
+    };
+
+    const removePopupFromCard = () => {
+      cardListElement.removeChild(popupElem.element);
+      document.body.classList.remove('hide-overflow');
+    };
+
+    const onEscKeyDown = (evt) => {
+      if (evt.keyCode === ESC_KEYBUTTON) { // 27 = ESC
+        evt.preventDefault();
+        removePopupFromCard();
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    };
+
+    cardComponent.setClickHandler(() => {
+      addPopupToCard();
+      document.addEventListener('keydown', onEscKeyDown);
+    });
+
+    popupElem.setCloseClickHandler(() => {
+      removePopupFromCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
+
     render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  // #renderCards = () => {
-  // }
+
+
+
+
+
+
 
   renderShowMoreButton = (showMoreButtonComponent) => {
     render(this.#siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);

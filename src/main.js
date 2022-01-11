@@ -12,19 +12,19 @@ import FilmCardTemplate from './view/movie-card-view.js';
 // import MovieStatisticView from './view/movie-statistics-view.js';
 import ShowMoreButtonView from './view/show-more-button-view.js';
 
-import {createObjectsArray} from '../src/mock/card.js';
+import {createCardsList} from '../src/mock/card.js';
 
 import MovieListPresenter from './presenter/movie-presenter.js';
 
 // const siteMainElement = document.querySelector('.main');
 const moviePresenter = new MovieListPresenter(document.querySelector('.main'));
 
-const objectsArray = createObjectsArray();
-// const userRating = calculateUserRating(objectsArray);
+const cardsArray = createCardsList();
+// const userRating = calculateUserRating(cardsArray);
 
 // render(siteMainElement, new SiteMenuView(), RENDER_POSITIONS.BEFOREEND);
 
-moviePresenter.init(objectsArray);
+moviePresenter.init(cardsArray);
 
 // render(siteMainElement, new SortElements(), RENDER_POSITIONS.BEFOREEND);
 moviePresenter.renderSort();
@@ -36,51 +36,52 @@ moviePresenter.renderFilmContainer();
 // const footerStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
 const filmsListContainer = document.querySelector('.films-list__container');
 
-const renderCard = (cardListElement, card) => {
-  const cardComponent = new FilmCardTemplate(card);
-  const popupElem = new PopupView(card);
+// const renderCard = (cardListElement, card) => {
+//   const cardComponent = new FilmCardTemplate(card);
+//   const popupElem = new PopupView(card);
 
-  const addPopupToCard = () => {
-    cardListElement.appendChild(popupElem.element);
-    document.body.classList.add('hide-overflow');
-  };
+//   const addPopupToCard = () => {
+//     cardListElement.appendChild(popupElem.element);
+//     document.body.classList.add('hide-overflow');
+//   };
 
-  const removePopupFromCard = () => {
-    cardListElement.removeChild(popupElem.element);
-    document.body.classList.remove('hide-overflow');
-  };
+//   const removePopupFromCard = () => {
+//     cardListElement.removeChild(popupElem.element);
+//     document.body.classList.remove('hide-overflow');
+//   };
 
-  const onEscKeyDown = (evt) => {
-    if (evt.keyCode === ESC_KEYBUTTON) { // 27 = ESC
-      evt.preventDefault();
-      removePopupFromCard();
-      document.removeEventListener('keydown', onEscKeyDown);
-    }
-  };
+//   const onEscKeyDown = (evt) => {
+//     if (evt.keyCode === ESC_KEYBUTTON) { // 27 = ESC
+//       evt.preventDefault();
+//       removePopupFromCard();
+//       document.removeEventListener('keydown', onEscKeyDown);
+//     }
+//   };
 
-  cardComponent.setClickHandler(() => {
-    addPopupToCard();
-    document.addEventListener('keydown', onEscKeyDown);
-  });
+//   cardComponent.setClickHandler(() => {
+//     addPopupToCard();
+//     document.addEventListener('keydown', onEscKeyDown);
+//   });
 
-  popupElem.setCloseClickHandler(() => {
-    removePopupFromCard();
-    document.removeEventListener('keydown', onEscKeyDown);
-  });
+//   popupElem.setCloseClickHandler(() => {
+//     removePopupFromCard();
+//     document.removeEventListener('keydown', onEscKeyDown);
+//   });
 
-  render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
-};
+//   render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
+// };
 
-if (objectsArray.length === 0) {
+if (cardsArray.length === 0) {
   // render(siteMainElement, new NoTaskView().element, RENDER_POSITIONS.BEFOREEND);
   moviePresenter.renderNoCards();
 } else {
 
-  for (let i = 0; i < Math.min(objectsArray.length, DISPLAYED_CARDS_PER_STEP); i++) {
-    renderCard(filmsListContainer, objectsArray[i]);
+  for (let i = 0; i < Math.min(cardsArray.length, DISPLAYED_CARDS_PER_STEP); i++) {
+    // renderCard(filmsListContainer, cardsArray[i]);
+    moviePresenter.renderCard(filmsListContainer, cardsArray[i]);
   }
 
-  if (objectsArray.length > DISPLAYED_CARDS_PER_STEP) {
+  if (cardsArray.length > DISPLAYED_CARDS_PER_STEP) {
     let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
     const showMoreButtonComponent = new ShowMoreButtonView();
 
@@ -88,13 +89,13 @@ if (objectsArray.length === 0) {
     moviePresenter.renderShowMoreButton(showMoreButtonComponent);
 
     showMoreButtonComponent.setClickHandler(() => {
-      objectsArray
+      cardsArray
         .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
-        .forEach((card) => renderCard(filmsListContainer, card));
+        .forEach((card) => moviePresenter.renderCard(filmsListContainer, card));
 
       renderedCardCount += DISPLAYED_CARDS_PER_STEP;
 
-      if (renderedCardCount >= objectsArray.length) {
+      if (renderedCardCount >= cardsArray.length) {
         showMoreButtonComponent.element.remove();
         showMoreButtonComponent.removeElement();
       }

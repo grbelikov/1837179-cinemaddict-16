@@ -121,7 +121,7 @@ export const generateCard = () => ({
   isFavorite: getRandomInteger(0, 1),
 });
 
-export const createObjectsArray = () => {
+export const createCardsList = () => {
   for (let i = 0; i < CARDS_COUNT; i++) {
     objectsArray.push(generateCard());
   }
