@@ -70,7 +70,6 @@ export default class MovieListPresenter {
     }
   }
 
-
   #renderNoCards = () => {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
@@ -106,6 +105,22 @@ export default class MovieListPresenter {
       removePopupFromCard();
       document.removeEventListener('keydown', onEscKeyDown);
     });
+
+
+
+    cardComponent.setClickAddToWatchList(() => {
+      console.log('AddToWatchList');
+    });
+
+    cardComponent.setClickMarkAsWatched(() => {
+      console.log('ClickMarkAsWatched');
+    });
+
+    cardComponent.setClickAddToFavorite(() => {
+      console.log('ClickAddToFavorite');
+    });
+
+
 
     render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }

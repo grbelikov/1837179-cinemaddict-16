@@ -43,4 +43,21 @@ export default class FilmCardTemplate extends AbstractView {
     evt.preventDefault();
     this._callback.editClick();
   }
+
+
+  setClickAddToWatchList = (cb) => {
+    this._callback.editClick = cb;
+    this.element.querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this.#editClickHandler);
+  }
+
+  setClickMarkAsWatched = (cb) => {
+    this._callback.editClick = cb;
+    this.element.querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this.#editClickHandler);
+  }
+
+  setClickAddToFavorite = (cb) => {
+    this._callback.editClick = cb;
+    this.element.querySelector('.film-card__controls-item--favorite').addEventListener('click', this.#editClickHandler);
+  }
+
 }
