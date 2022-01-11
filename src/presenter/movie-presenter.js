@@ -12,8 +12,6 @@ import FilmContainerView from '../view/film-container-view.js';
 import MovieStatisticView from '../view/movie-statistics-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 
-// import {createObjectsArray} from '../js';
-
 export default class MovieListPresenter {
   #siteMainElement = null;
 
@@ -35,6 +33,10 @@ export default class MovieListPresenter {
     this.#films = [...films];
     this.#renderSiteMenu();
     this.#userRating = calculateUserRating(this.#films);
+
+    this.renderSort();
+    this.renderFilmContainer();
+    this.renderCards();
   }
 
   #renderSiteMenu = () => {
@@ -49,11 +51,31 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#filmContainerComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  renderNoCards = () => {
+  renderCards = () => {
+    const filmsListContainer = document.querySelector('.films-list__container');
+    if (this.#films.length === 0) {
+      this.#renderNoCards();
+    } else {
+
+      for (let i = 0; i < Math.min(this.#films.length, DISPLAYED_CARDS_PER_STEP); i++) {
+        this.#renderCard(filmsListContainer, this.#films[i]);
+      }
+
+      if (this.#films.length > DISPLAYED_CARDS_PER_STEP) {
+        this.#renderShowMoreButton();
+      }
+
+      this.#renderUserRating();
+      this.#renderMovieStatistic();
+    }
+  }
+
+
+  #renderNoCards = () => {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  renderCard = (cardListElement, card) => {
+  #renderCard = (cardListElement, card) => {
     const cardComponent = new FilmCardTemplate(card);
     const popupElem = new PopupView(card);
 
@@ -88,7 +110,7 @@ export default class MovieListPresenter {
     render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  renderShowMoreButton = () => {
+  #renderShowMoreButton = () => {
     const showMoreButtonComponent = new ShowMoreButtonView();
     let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
 
@@ -97,7 +119,7 @@ export default class MovieListPresenter {
     showMoreButtonComponent.setClickHandler(() => {
       this.#films
         .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
-        .forEach((card) => this.renderCard(document.querySelector('.films-list__container'), card));
+        .forEach((card) => this.#renderCard(document.querySelector('.films-list__container'), card));
 
       renderedCardCount += DISPLAYED_CARDS_PER_STEP;
 
@@ -111,11 +133,11 @@ export default class MovieListPresenter {
 
   //!!!!! почему, если вызвать как переменную, то не работает???
   // #userRangComponent = new UserRangView(this.#userRating);
-  renderUserRating = () => {
+  #renderUserRating = () => {
     render(document.querySelector('.header'), new UserRangView(this.#userRating), RENDER_POSITIONS.BEFOREEND);
   }
 
-  renderMovieStatistic = () => {
+  #renderMovieStatistic = () => {
     render(document.querySelector('.footer__statistics'), this.#movieStatisticComponent, RENDER_POSITIONS.BEFOREEND);
   }
 }
