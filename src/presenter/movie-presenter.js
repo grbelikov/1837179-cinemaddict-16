@@ -10,6 +10,7 @@ import SortElements from '../view/sort-elements.js';
 import FilmCardTemplate from '../view/movie-card-view.js';
 import FilmContainerView from '../view/film-container-view.js';
 import MovieStatisticView from '../view/movie-statistics-view.js';
+import ShowMoreButtonView from '../view/show-more-button-view.js';
 
 // import {createObjectsArray} from '../js';
 
@@ -87,15 +88,25 @@ export default class MovieListPresenter {
     render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
+  renderShowMoreButton = () => {
+    const showMoreButtonComponent = new ShowMoreButtonView();
+    let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
 
-
-
-
-
-
-
-  renderShowMoreButton = (showMoreButtonComponent) => {
     render(this.#siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
+
+    showMoreButtonComponent.setClickHandler(() => {
+      this.#films
+        .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
+        .forEach((card) => this.renderCard(document.querySelector('.films-list__container'), card));
+
+      renderedCardCount += DISPLAYED_CARDS_PER_STEP;
+
+      if (renderedCardCount >= this.#films.length) {
+        showMoreButtonComponent.element.remove();
+        showMoreButtonComponent.removeElement();
+      }
+    });
+
   }
 
   //!!!!! почему, если вызвать как переменную, то не работает???

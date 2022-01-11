@@ -82,24 +82,24 @@ if (cardsArray.length === 0) {
   }
 
   if (cardsArray.length > DISPLAYED_CARDS_PER_STEP) {
-    let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
-    const showMoreButtonComponent = new ShowMoreButtonView();
+    // let renderedCardCount = DISPLAYED_CARDS_PER_STEP;
+    // const showMoreButtonComponent = new ShowMoreButtonView();
 
     // render(siteMainElement, showMoreButtonComponent, RENDER_POSITIONS.BEFOREEND);
-    moviePresenter.renderShowMoreButton(showMoreButtonComponent);
+    moviePresenter.renderShowMoreButton();
 
-    showMoreButtonComponent.setClickHandler(() => {
-      cardsArray
-        .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
-        .forEach((card) => moviePresenter.renderCard(filmsListContainer, card));
+    // showMoreButtonComponent.setClickHandler(() => {
+    //   cardsArray
+    //     .slice(renderedCardCount, renderedCardCount + DISPLAYED_CARDS_PER_STEP)
+    //     .forEach((card) => moviePresenter.renderCard(filmsListContainer, card));
 
-      renderedCardCount += DISPLAYED_CARDS_PER_STEP;
+    //   renderedCardCount += DISPLAYED_CARDS_PER_STEP;
 
-      if (renderedCardCount >= cardsArray.length) {
-        showMoreButtonComponent.element.remove();
-        showMoreButtonComponent.removeElement();
-      }
-    });
+    //   if (renderedCardCount >= cardsArray.length) {
+    //     showMoreButtonComponent.element.remove();
+    //     showMoreButtonComponent.removeElement();
+    //   }
+    // });
   }
 
   // const siteHeaderElement = document.querySelector('.header');
