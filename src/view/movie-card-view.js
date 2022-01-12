@@ -45,6 +45,7 @@ export default class FilmCardTemplate extends AbstractView {
   }
 
 
+  // Методы для добавления фильма в Вотчлист при клике
   setClickAddToWatchList = (cb) => {
     this._callback.clickAddToWatchList = cb;
     this.element.querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this.#editClickAddToWatchList);
@@ -54,23 +55,26 @@ export default class FilmCardTemplate extends AbstractView {
     this._callback.clickAddToWatchList();
   }
 
+  // Методы для добавления фильма в Просмотренные при клике
   setClickMarkAsWatched = (cb) => {
     this._callback.clickMarkAsWatched = cb;
-    this.element.querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this.#editClickMarkAsWatched);
+    this.element.querySelector('.film-card__controls-item--mark-as-watched')
+      .addEventListener('click', this.#editClickMarkAsWatched);
   }
 
   #editClickMarkAsWatched = () => {
     this._callback.clickMarkAsWatched();
   }
 
+  // Методы для добавления фильма в Любимые при клике
   setClickAddToFavorite = (cb) => {
     this._callback.clickAddToFavorite = cb;
-    this.element.querySelector('.film-card__controls-item--favorite').addEventListener('click', this.#editClickAddToFavorite);
+    this.element.querySelector('.film-card__controls-item--favorite')
+      .addEventListener('click', this.#editClickAddToFavorite);
   }
 
   #editClickAddToFavorite = () => {
     this._callback.clickAddToFavorite();
   }
-
 
 }

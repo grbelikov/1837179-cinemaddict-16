@@ -106,23 +106,28 @@ export default class MovieListPresenter {
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
+    popupElem.setClickAddToWatchList(() => {
+      card.inWatchlist = !card.inWatchlist;
+    });
+
+    popupElem.setClickMarkAsWatched(() => {
+      card.isWatched = !card.isWatched;
+    });
+
+    popupElem.setClickAddToFavorite(() => {
+      card.isFavorite = !card.isFavorite;
+    });
 
     cardComponent.setClickAddToWatchList(() => {
-      console.log('111');
       card.inWatchlist = !card.inWatchlist;
-      console.log(card.inWatchlist);
     });
 
     cardComponent.setClickMarkAsWatched(() => {
-      console.log('222');
       card.isWatched = !card.isWatched;
-      console.log(card.isWatched);
     });
 
     cardComponent.setClickAddToFavorite(() => {
-      console.log('333');
       card.isFavorite = !card.isFavorite;
-      console.log(card.isFavorite);
     });
     render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
   }

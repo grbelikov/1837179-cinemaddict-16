@@ -188,4 +188,34 @@ export default class PopupView extends AbstractView {
     evt.preventDefault();
     this._callback.editClick();
   }
+
+  // Методы для добавления фильма в Вотчлист при клике
+  setClickAddToWatchList = (cb) => {
+    this._callback.clickAddToWatchList = cb;
+    this.element.querySelector('#watchlist').addEventListener('click', this.#editClickAddToWatchList);
+  }
+
+  #editClickAddToWatchList = () => {
+    this._callback.clickAddToWatchList();
+  }
+
+  // Методы для добавления фильма в Просмотренные при клике
+  setClickMarkAsWatched = (cb) => {
+    this._callback.clickMarkAsWatched = cb;
+    this.element.querySelector('#watched').addEventListener('click', this.#editClickMarkAsWatched);
+  }
+
+  #editClickMarkAsWatched = () => {
+    this._callback.clickMarkAsWatched();
+  }
+
+  // Методы для добавления фильма в Любимые при клике
+  setClickAddToFavorite = (cb) => {
+    this._callback.clickAddToFavorite = cb;
+    this.element.querySelector('#favorite').addEventListener('click', this.#editClickAddToFavorite);
+  }
+
+  #editClickAddToFavorite = () => {
+    this._callback.clickAddToFavorite();
+  }
 }
