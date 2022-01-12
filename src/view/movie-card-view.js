@@ -46,18 +46,31 @@ export default class FilmCardTemplate extends AbstractView {
 
 
   setClickAddToWatchList = (cb) => {
-    this._callback.editClick = cb;
-    this.element.querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this.#editClickHandler);
+    this._callback.clickAddToWatchList = cb;
+    this.element.querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this.#editClickAddToWatchList);
+  }
+
+  #editClickAddToWatchList = () => {
+    this._callback.clickAddToWatchList();
   }
 
   setClickMarkAsWatched = (cb) => {
-    this._callback.editClick = cb;
-    this.element.querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this.#editClickHandler);
+    this._callback.clickMarkAsWatched = cb;
+    this.element.querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this.#editClickMarkAsWatched);
+  }
+
+  #editClickMarkAsWatched = () => {
+    this._callback.clickMarkAsWatched();
   }
 
   setClickAddToFavorite = (cb) => {
-    this._callback.editClick = cb;
-    this.element.querySelector('.film-card__controls-item--favorite').addEventListener('click', this.#editClickHandler);
+    this._callback.clickAddToFavorite = cb;
+    this.element.querySelector('.film-card__controls-item--favorite').addEventListener('click', this.#editClickAddToFavorite);
   }
+
+  #editClickAddToFavorite = () => {
+    this._callback.clickAddToFavorite();
+  }
+
 
 }

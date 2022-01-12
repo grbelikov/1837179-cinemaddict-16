@@ -116,9 +116,9 @@ export const generateCard = () => ({
   description: generateDescription(),
   comments: generateComments(),
   ageLimit: null,
-  inWatchlist: getRandomInteger(0, 1),
-  isWatched: getRandomInteger(0, 1),
-  isFavorite: getRandomInteger(0, 1),
+  inWatchlist: Boolean(getRandomInteger(0, 1)),
+  isWatched: Boolean(getRandomInteger(0, 1)),
+  isFavorite: Boolean(getRandomInteger(0, 1)),
 });
 
 export const createCardsList = () => {
