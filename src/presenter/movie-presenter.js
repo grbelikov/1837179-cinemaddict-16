@@ -151,7 +151,6 @@ export default class MovieListPresenter {
         showMoreButtonComponent.removeElement();
       }
     });
-
   }
 
   //!!!!! почему, если вызвать как переменную, то не работает???

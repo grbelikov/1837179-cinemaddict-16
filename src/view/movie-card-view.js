@@ -1,26 +1,41 @@
 import AbstractView from './abstract-view.js';
 
-const createFilmCardTemplate = (objectCard) => (
-  `<article class="film-card">
-      <a class="film-card__link">
-        <h3 class="film-card__title">${objectCard.title}</h3>
-        <p class="film-card__rating">${objectCard.rating}</p>
-        <p class="film-card__info">
-          <span class="film-card__year">${objectCard.year}</span>
-          <span class="film-card__duration">${objectCard.duration}</span>
-          <span class="film-card__genre">${objectCard.genres}</span>
-        </p>
-        <img src="${objectCard.poster}" alt="" class="film-card__poster">
-        <p class="film-card__description">${objectCard.description}</p>
-        <span class="film-card__comments">${objectCard.comments.length} comments</span>
-      </a>
-      <div class="film-card__controls">
-        <button class="film-card__controls-item film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
-        <button class="film-card__controls-item film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
-        <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
-      </div>
-    </article>`
-);
+
+const createFilmCardTemplate = (objectCard) => {
+  const {inWatchlist, isFavorite, isWatched} = objectCard;
+
+  const inWatchlistClassName = inWatchlist
+    ? 'film-card__controls-item'
+    : 'film-card__controls-item film-card__controls-item--active';
+
+  const favoriteClassName = isFavorite
+    ? 'film-card__controls-item'
+    : 'film-card__controls-item film-card__controls-item--active';
+
+  const watchedClassName = isWatched
+    ? 'film-card__controls-item'
+    : 'film-card__controls-item film-card__controls-item--active';
+
+  return `<article class="film-card">
+    <a class="film-card__link">
+      <h3 class="film-card__title">${objectCard.title}</h3>
+      <p class="film-card__rating">${objectCard.rating}</p>
+      <p class="film-card__info">
+        <span class="film-card__year">${objectCard.year}</span>
+        <span class="film-card__duration">${objectCard.duration}</span>
+        <span class="film-card__genre">${objectCard.genres}</span>
+      </p>
+      <img src="${objectCard.poster}" alt="" class="film-card__poster">
+      <p class="film-card__description">${objectCard.description}</p>
+      <span class="film-card__comments">${objectCard.comments.length} comments</span>
+    </a>
+    <div class="film-card__controls">
+    <button class="${inWatchlistClassName} film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
+    <button class="${favoriteClassName} film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
+    <button class="${watchedClassName} film-card__controls-item--favorite" type="button">Mark as favorite</button>
+    </div>
+  </article>`;
+};
 
 export default class FilmCardTemplate extends AbstractView {
   #card = null;
@@ -76,5 +91,4 @@ export default class FilmCardTemplate extends AbstractView {
   #editClickAddToFavorite = () => {
     this._callback.clickAddToFavorite();
   }
-
 }
