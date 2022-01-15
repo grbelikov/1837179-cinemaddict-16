@@ -76,7 +76,7 @@ export default class MovieListPresenter {
   }
 
   #renderCard = (cardListElement, card, i) => {
-    console.log(cardListElement, card, i);
+    // console.log(cardListElement, card, i);
 
     const cardComponent = new FilmCardTemplate(card);
     const popupElem = new PopupView(card);
@@ -111,31 +111,35 @@ export default class MovieListPresenter {
 
     popupElem.setClickAddToWatchList(() => {
       card.inWatchlist = !card.inWatchlist;
+      this.#renderCard(cardListElement, card, i);
+      // this.#renderCard(popupElem, card, i);
     });
 
     popupElem.setClickMarkAsWatched(() => {
       card.isWatched = !card.isWatched;
+      this.#renderCard(popupElem, card, i);
+      // this.#renderCard(popupElem, card, i);
     });
 
     popupElem.setClickAddToFavorite(() => {
       card.isFavorite = !card.isFavorite;
+      this.#renderCard(cardListElement, card, i);
+      // this.#renderCard(popupElem, card, i);
     });
 
     cardComponent.setClickAddToWatchList(() => {
       card.inWatchlist = !card.inWatchlist;
-      console.log('AddToWatchList');
       this.#renderCard(cardListElement, card, i);
-
     });
 
     cardComponent.setClickMarkAsWatched(() => {
       card.isWatched = !card.isWatched;
-      console.log('MarkAsWatched');
+      this.#renderCard(cardListElement, card, i);
     });
 
     cardComponent.setClickAddToFavorite(() => {
       card.isFavorite = !card.isFavorite;
-      console.log('AddToFavorite');
+      this.#renderCard(cardListElement, card, i);
     });
 
     if (this.#filmTemplatesList.has(i)) {

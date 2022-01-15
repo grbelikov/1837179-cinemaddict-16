@@ -1,5 +1,4 @@
 import AbstractView from './abstract-view.js';
-import {replace, createElement} from '../render.js';
 
 const createFilmCardTemplate = (objectCard) => {
   const {inWatchlist, isFavorite, isWatched} = objectCard;
@@ -31,8 +30,8 @@ const createFilmCardTemplate = (objectCard) => {
     </a>
     <div class="film-card__controls">
     <button class="${inWatchlistClassName} film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
-    <button class="${favoriteClassName} film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
-    <button class="${watchedClassName} film-card__controls-item--favorite" type="button">Mark as favorite</button>
+    <button class="${watchedClassName} film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
+    <button class="${favoriteClassName} film-card__controls-item--favorite" type="button">Mark as favorite</button>
     </div>
   </article>`;
 };
