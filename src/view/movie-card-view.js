@@ -1,20 +1,20 @@
 import AbstractView from './abstract-view.js';
-
+import {replace, createElement} from '../render.js';
 
 const createFilmCardTemplate = (objectCard) => {
   const {inWatchlist, isFavorite, isWatched} = objectCard;
 
   const inWatchlistClassName = inWatchlist
-    ? 'film-card__controls-item'
-    : 'film-card__controls-item film-card__controls-item--active';
+    ? 'film-card__controls-item film-card__controls-item--active'
+    : 'film-card__controls-item';
 
   const favoriteClassName = isFavorite
-    ? 'film-card__controls-item'
-    : 'film-card__controls-item film-card__controls-item--active';
+    ? 'film-card__controls-item film-card__controls-item--active'
+    : 'film-card__controls-item';
 
   const watchedClassName = isWatched
-    ? 'film-card__controls-item'
-    : 'film-card__controls-item film-card__controls-item--active';
+    ? 'film-card__controls-item film-card__controls-item--active'
+    : 'film-card__controls-item';
 
   return `<article class="film-card">
     <a class="film-card__link">
@@ -58,7 +58,6 @@ export default class FilmCardTemplate extends AbstractView {
     evt.preventDefault();
     this._callback.editClick();
   }
-
 
   // Методы для добавления фильма в Вотчлист при клике
   setClickAddToWatchList = (cb) => {

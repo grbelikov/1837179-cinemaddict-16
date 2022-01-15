@@ -1,5 +1,5 @@
 import {calculateUserRating} from '../js/rangs.js';
-import {render} from '../render.js';
+import {render, replace} from '../render.js';
 import {DISPLAYED_CARDS_PER_STEP, RENDER_POSITIONS, ESC_KEYBUTTON} from '../js/consts.js';
 
 import PopupView from '../view/popup-view.js';
@@ -22,6 +22,7 @@ export default class MovieListPresenter {
   #movieStatisticComponent = new MovieStatisticView();
   #filmCardTemplateComponent = new FilmCardTemplate();
 
+  #filmTemplatesList = new Map();
   #films = [];
   #userRating = '';
 
@@ -58,7 +59,7 @@ export default class MovieListPresenter {
     } else {
 
       for (let i = 0; i < Math.min(this.#films.length, DISPLAYED_CARDS_PER_STEP); i++) {
-        this.#renderCard(filmsListContainer, this.#films[i]);
+        this.#renderCard(filmsListContainer, this.#films[i], i);
       }
 
       if (this.#films.length > DISPLAYED_CARDS_PER_STEP) {
@@ -74,7 +75,9 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderCard = (cardListElement, card) => {
+  #renderCard = (cardListElement, card, i) => {
+    console.log(cardListElement, card, i);
+
     const cardComponent = new FilmCardTemplate(card);
     const popupElem = new PopupView(card);
 
@@ -120,16 +123,28 @@ export default class MovieListPresenter {
 
     cardComponent.setClickAddToWatchList(() => {
       card.inWatchlist = !card.inWatchlist;
+      console.log('AddToWatchList');
+      this.#renderCard(cardListElement, card, i);
+
     });
 
     cardComponent.setClickMarkAsWatched(() => {
       card.isWatched = !card.isWatched;
+      console.log('MarkAsWatched');
     });
 
     cardComponent.setClickAddToFavorite(() => {
       card.isFavorite = !card.isFavorite;
+      console.log('AddToFavorite');
     });
-    render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
+
+    if (this.#filmTemplatesList.has(i)) {
+      replace(cardComponent, this.#filmTemplatesList.get(i));
+    } else {
+      render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
+    }
+
+    this.#filmTemplatesList.set(i, cardComponent);
   }
 
 
