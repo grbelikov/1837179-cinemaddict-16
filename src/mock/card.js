@@ -1,4 +1,5 @@
 import {EMOTIONS, CARDS_COUNT} from '../js/consts.js';
+import {nanoid} from 'nanoid';
 
 const objectsArray = [];
 
@@ -100,6 +101,7 @@ const generateDescription = () => {
 };
 
 export const generateCard = () => ({
+  id: nanoid(),
   fullSizePoster: 'FullSizePoster',
   poster: generatePoster(),
   title: generateTitle(),

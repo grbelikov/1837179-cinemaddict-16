@@ -24,6 +24,7 @@ export default class MovieListPresenter {
 
   #filmTemplatesList = new Map();
   #popupTemplatesList = new Map();
+  #cardPresenter = new Map();
 
   #films = [];
   #userRating = '';
@@ -77,15 +78,28 @@ export default class MovieListPresenter {
     render(this.#siteMainElement, this.#noTaskComponent, RENDER_POSITIONS.BEFOREEND);
   }
 
-  #renderCard = (cardListElement, card, i) => {
+  #renderCard = (cardListElement, card) => {
+
+    this.#cardPresenter.set(card.id, cardListElement);
 
     const cardComponent = new FilmCardTemplate(card);
     const popupElem = new PopupView(card);
 
+    // const removePopupFromCard = () => {
+    //   remove(popupElem);
+    // };
+
+    const onEscKeyDown = (evt) => {
+      if (evt.keyCode === ESC_KEYBUTTON) { // 27 = ESC
+        remove(popupElem);
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    };
+
     const addPopupToCard = () => {
       remove(popupElem);
       render(document.body, popupElem, RENDER_POSITIONS.AFTEREND);
-      this.#popupTemplatesList.set(i, popupElem);
+      this.#popupTemplatesList.set(card.id, popupElem);
 
       popupElem.setCloseClickHandler(() => {
         remove(popupElem);
@@ -94,32 +108,21 @@ export default class MovieListPresenter {
 
       popupElem.setClickAddToWatchList(() => {
         card.inWatchlist = !card.inWatchlist;
-        this.#renderCard(cardListElement, card, i);
+        this.#renderCard(cardListElement, card, card.id);
         addPopupToCard();
       });
 
       popupElem.setClickMarkAsWatched(() => {
         card.isWatched = !card.isWatched;
-        this.#renderCard(cardListElement, card, i);
+        this.#renderCard(cardListElement, card, card.id);
         addPopupToCard();
       });
 
       popupElem.setClickAddToFavorite(() => {
         card.isFavorite = !card.isFavorite;
-        this.#renderCard(cardListElement, card, i);
+        this.#renderCard(cardListElement, card, card.id);
         addPopupToCard();
       });
-    };
-
-    const removePopupFromCard = () => {
-      remove(popupElem);
-    };
-
-    const onEscKeyDown = (evt) => {
-      if (evt.keyCode === ESC_KEYBUTTON) { // 27 = ESC
-        removePopupFromCard();
-        document.removeEventListener('keydown', onEscKeyDown);
-      }
     };
 
     cardComponent.setClickHandler(() => {
@@ -130,26 +133,26 @@ export default class MovieListPresenter {
 
     cardComponent.setClickAddToWatchList(() => {
       card.inWatchlist = !card.inWatchlist;
-      this.#renderCard(cardListElement, card, i);
+      this.#renderCard(cardListElement, card, card.id);
     });
 
     cardComponent.setClickMarkAsWatched(() => {
       card.isWatched = !card.isWatched;
-      this.#renderCard(cardListElement, card, i);
+      this.#renderCard(cardListElement, card, card.id);
     });
 
     cardComponent.setClickAddToFavorite(() => {
       card.isFavorite = !card.isFavorite;
-      this.#renderCard(cardListElement, card, i);
+      this.#renderCard(cardListElement, card, card.id);
     });
 
-    if (this.#filmTemplatesList.has(i)) {
-      replace(cardComponent, this.#filmTemplatesList.get(i));
+    if (this.#filmTemplatesList.has(card.id)) {
+      replace(cardComponent, this.#filmTemplatesList.get(card.id));
     } else {
       render(cardListElement, cardComponent, RENDER_POSITIONS.BEFOREEND);
     }
 
-    this.#filmTemplatesList.set(i, cardComponent);
+    this.#filmTemplatesList.set(card.id, cardComponent);
   }
 
 
@@ -170,7 +173,6 @@ export default class MovieListPresenter {
         showMoreButtonComponent.element.remove();
         showMoreButtonComponent.removeElement();
       }
-
 
     });
   }
