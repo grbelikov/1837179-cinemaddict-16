@@ -38,34 +38,18 @@ export const replace = (newElement, oldElement) => {
   parent.replaceChild(newChild, oldChild);
 };
 
+export const remove = (component) => {
+  if (component === null) {
+    return;
+  }
 
-// export const appendElement = (component) => {
-//   // на будущее, дописать
-//   if (component === null) {
-//     return;
-//   }
+  if (!(component instanceof AbstractView)) {
+    throw new Error('Can remove only components');
+  }
 
-//   if (!(component instanceof AbstractView)) {
-//     throw new Error('Can append only components.');
-//   }
-
-//   component.element.append();
-//   component.appendElement();
-// };
-
-// export const remove = (component) => {
-//   // на будущее, дописать
-//   if (component === null) {
-//     return;
-//   }
-
-//   if (!(component instanceof AbstractView)) {
-//     throw new Error('Can remove only components.');
-//   }
-
-//   component.element.remove();
-//   component.removeElement();
-// };
+  component.element.remove();
+  component.removeElement();
+};
 
 export const createElement = (template) => {
   const newElement = document.createElement('div');

@@ -4,11 +4,6 @@ import AbstractView from './abstract-view.js';
 const createPopupTemplate = (filmDetailsPopup) => {
   const {inWatchlist, isFavorite, isWatched} = filmDetailsPopup;
 
-  // // !!!!!!!!!!!!временно, удалить!
-  // const inWatchlist = true;
-  // const isFavorite = true;
-  // const isWatched = true;
-
   const inWatchlistClassName = inWatchlist
     ? 'film-details__control-button film-details__control-button--active'
     : 'film-details__control-button';
