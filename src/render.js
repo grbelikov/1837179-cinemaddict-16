@@ -21,33 +21,35 @@ export const render = (container, element, place) => {
   }
 };
 
-// export const appendElement = (component) => {
-//   // на будущее, дописать
-//   if (component === null) {
-//     return;
-//   }
+export const replace = (newElement, oldElement) => {
+  if (newElement === null || oldElement === null) {
+    throw new Error('Can\'t replace unexisting elements');
+  }
 
-//   if (!(component instanceof AbstractView)) {
-//     throw new Error('Can append only components.');
-//   }
+  const newChild = newElement instanceof AbstractView ? newElement.element : newElement;
+  const oldChild = oldElement instanceof AbstractView ? oldElement.element : oldElement;
 
-//   component.element.append();
-//   component.appendElement();
-// };
+  const parent = oldChild.parentElement;
 
-// export const remove = (component) => {
-//   // на будущее, дописать
-//   if (component === null) {
-//     return;
-//   }
+  if (parent === null) {
+    throw new Error('Parent element doesn\'t exist');
+  }
 
-//   if (!(component instanceof AbstractView)) {
-//     throw new Error('Can remove only components.');
-//   }
+  parent.replaceChild(newChild, oldChild);
+};
 
-//   component.element.remove();
-//   component.removeElement();
-// };
+export const remove = (component) => {
+  if (component === null) {
+    return;
+  }
+
+  if (!(component instanceof AbstractView)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.element.remove();
+  component.removeElement();
+};
 
 export const createElement = (template) => {
   const newElement = document.createElement('div');

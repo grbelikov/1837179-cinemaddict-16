@@ -1,7 +1,23 @@
 import AbstractView from './abstract-view.js';
 
-const createPopupTemplate = (filmDetailsPopup) => (
-  `<section class="film-details">
+// eslint-disable-next-line arrow-body-style
+const createPopupTemplate = (filmDetailsPopup) => {
+  const {inWatchlist, isFavorite, isWatched} = filmDetailsPopup;
+
+  const inWatchlistClassName = inWatchlist
+    ? 'film-details__control-button film-details__control-button--active'
+    : 'film-details__control-button';
+
+  const favoriteClassName = isFavorite
+    ? 'film-details__control-button film-details__control-button--active'
+    : 'film-details__control-button';
+
+  const watchedClassName = isWatched
+    ? 'film-details__control-button film-details__control-button--active'
+    : 'film-details__control-button';
+
+
+  return `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
       <div class="film-details__top-container">
         <div class="film-details__close">
@@ -67,9 +83,9 @@ const createPopupTemplate = (filmDetailsPopup) => (
         </div>
 
         <section class="film-details__controls">
-          <button type="button" class="film-details__control-button film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
-          <button type="button" class="film-details__control-button film-details__control-button--active film-details__control-button--watched" id="watched" name="watched">Already watched</button>
-          <button type="button" class="film-details__control-button film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
+          <button type="button" class="${inWatchlistClassName} film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
+          <button type="button" class="${watchedClassName} film-details__control-button--watched" id="watched" name="watched">Already watched</button>
+          <button type="button" class="${favoriteClassName} film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
         </section>
       </div>
 
@@ -164,8 +180,8 @@ const createPopupTemplate = (filmDetailsPopup) => (
         </section>
       </div>
     </form>
-  </section>`
-);
+  </section>`;
+};
 
 export default class PopupView extends AbstractView {
   #filmDetailsPopup = null;
@@ -187,5 +203,35 @@ export default class PopupView extends AbstractView {
   #editClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.editClick();
+  }
+
+  // Методы для добавления фильма в Вотчлист при клике
+  setClickAddToWatchList = (cb) => {
+    this._callback.clickAddToWatchList = cb;
+    this.element.querySelector('#watchlist').addEventListener('click', this.#editClickAddToWatchList);
+  }
+
+  #editClickAddToWatchList = () => {
+    this._callback.clickAddToWatchList();
+  }
+
+  // Методы для добавления фильма в Просмотренные при клике
+  setClickMarkAsWatched = (cb) => {
+    this._callback.clickMarkAsWatched = cb;
+    this.element.querySelector('#watched').addEventListener('click', this.#editClickMarkAsWatched);
+  }
+
+  #editClickMarkAsWatched = () => {
+    this._callback.clickMarkAsWatched();
+  }
+
+  // Методы для добавления фильма в Любимые при клике
+  setClickAddToFavorite = (cb) => {
+    this._callback.clickAddToFavorite = cb;
+    this.element.querySelector('#favorite').addEventListener('click', this.#editClickAddToFavorite);
+  }
+
+  #editClickAddToFavorite = () => {
+    this._callback.clickAddToFavorite();
   }
 }

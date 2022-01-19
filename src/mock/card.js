@@ -1,4 +1,5 @@
 import {EMOTIONS, CARDS_COUNT} from '../js/consts.js';
+import {nanoid} from 'nanoid';
 
 const objectsArray = [];
 
@@ -100,6 +101,7 @@ const generateDescription = () => {
 };
 
 export const generateCard = () => ({
+  id: nanoid(),
   fullSizePoster: 'FullSizePoster',
   poster: generatePoster(),
   title: generateTitle(),
@@ -116,12 +118,12 @@ export const generateCard = () => ({
   description: generateDescription(),
   comments: generateComments(),
   ageLimit: null,
-  inWatchlist: getRandomInteger(0, 1),
-  isWatched: getRandomInteger(0, 1),
-  isFavorite: getRandomInteger(0, 1),
+  inWatchlist: Boolean(getRandomInteger(0, 1)),
+  isFavorite: Boolean(getRandomInteger(0, 1)),
+  isWatched: Boolean(getRandomInteger(0, 1)),
 });
 
-export const createObjectsArray = () => {
+export const createCardsList = () => {
   for (let i = 0; i < CARDS_COUNT; i++) {
     objectsArray.push(generateCard());
   }
